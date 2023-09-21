@@ -4,12 +4,10 @@ module.exports = withModuleFederationPlugin({
 	name: 'mfAuthentication',
 
 	exposes: {
-		'./LoginModule': './src/app/login/login.module.ts'
+		'./AuthModule': './src/app/modules/auth/auth.module.ts'
 	},
 
 	shared: {
 		...shareAll({ singleton: true, strictVersion: true, requiredVersion: 'auto' })
 	}
 });
-// moduleFederationConfig.output.publicPath = 'http://localhost:4201/';
-// module.exports = moduleFederationConfig;
