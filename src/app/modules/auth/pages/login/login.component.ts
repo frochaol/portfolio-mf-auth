@@ -1,4 +1,5 @@
 import { Component, inject } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthUseCaseService } from '../../../../domain/auth/application/auth-use-case.service';
 import { IRequestCredential } from '../../../../domain/auth/domain/auth.model';
 
@@ -9,6 +10,12 @@ import { IRequestCredential } from '../../../../domain/auth/domain/auth.model';
 })
 export class LoginComponent {
 	private _authUseCaseService = inject(AuthUseCaseService);
+
+	private route = inject(Router);
+
+	redirect() {
+		this.route.navigate(['auth/prueba']);
+	}
 
 	async login(): Promise<void> {
 		const credentials: IRequestCredential = {

@@ -8,9 +8,10 @@ import { AuthFirebaseApiService } from '../../domain/auth/infraestructure/auth-f
 import { AUTH_API_PROVIDER } from '../../domain/auth/infraestructure/providers/auth-api.provider';
 import { AuthRoutingModule } from './auth-routing.module';
 import { LoginComponent } from './pages/login/login.component';
+import { LayoutComponent } from './pages/layout/layout.component';
 
 @NgModule({
-	declarations: [LoginComponent],
+	declarations: [LoginComponent, LayoutComponent],
 	imports: [
 		CommonModule,
 		AuthRoutingModule,
