@@ -1,11 +1,20 @@
-<p>MF AUTHENTICATION</p>
-<div>
-	<input type="text" formControlName="email" />
-</div>
-<div>
-	<button (click)="login()">Logear</button>
-</div>
+<form [formGroup]="loginForm">
+	<div>
+		<label for="emailInput">Email</label>
+		<input formControlName="email" type="email" id="emailInput" />
+		<div *ngIf="email.invalid && (email.dirty || email.touched)">
+			<div *ngIf="email.errors?.['required']">El email es requerido</div>
+			<div *ngIf="email.errors?.['email']">El email no es correcto</div>
+		</div>
+	</div>
 
-<div>
-	<button (click)="redirect()">Redirect</button>
-</div>
+	<div>
+		<label for="passwordInput">Password</label>
+		<input formControlName="password" type="password" id="passwordInput" />
+		<div *ngIf="password.invalid && (email.dirty || email.touched)">
+			<div *ngIf="password.errors?.['required']">El password es requerido</div>
+		</div>
+	</div>
+
+	<button type="submit" (click)="login()">Iniciar Sesión</button>
+</form>
