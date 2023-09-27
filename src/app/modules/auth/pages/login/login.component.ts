@@ -1,38 +1,26 @@
 import { Component, inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { AuthUseCaseService } from '../../../../domain/auth/application/auth-use-case.service';
+import { FormGroup } from '@angular/forms';
 import { IRequestCredential } from '../../../../domain/auth/domain/auth.model';
 import { ILoginForm } from '../../models/login-form.interface';
+import { LoginComponentPresenter } from './login.component.presenter';
 
 // email: 'administrador@frochaol.com',
 // password: 'FR@30t3s/.DuB015'
 @Component({
 	selector: 'app-login',
 	templateUrl: './login.component.html',
-	styleUrls: ['./login.component.scss']
+	styleUrls: ['./login.component.scss'],
+	providers: [LoginComponentPresenter]
 })
 export class LoginComponent {
-	private authUseCaseService = inject(AuthUseCaseService);
-	private formBuilder = inject(FormBuilder);
-	private router = inject(Router);
+	private presenter = inject(LoginComponentPresenter);
 
-	loginForm: FormGroup<ILoginForm> = this.formBuilder.group({
-		email: this.formBuilder.control('', {
-			validators: [Validators.required, Validators.email],
-			nonNullable: true
-		}),
-		password: this.formBuilder.control('', {
-			validators: Validators.required,
-			nonNullable: true
-		})
-	});
+	loginForm: FormGroup<ILoginForm> = this.presenter.form;
 
 	async login() {
 		if (this.loginForm.valid) {
 			try {
-				await this.authUseCaseService.login(this.loginForm.value as IRequestCredential);
-				this.router.navigate(['/auth/logged']);
+				await this.presenter.login(this.loginForm.value as IRequestCredential);
 				this.loginForm.reset();
 			} catch (error) {
 				console.log(error);
